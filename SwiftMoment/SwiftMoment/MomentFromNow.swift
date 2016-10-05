@@ -102,10 +102,12 @@ extension Moment {
 
       let bundleName = "MomentFromNow.bundle"
       let path = NSURL(fileURLWithPath:resourcePath).URLByAppendingPathComponent(bundleName)
-      guard let bundle = NSBundle(URL: path) else {
+      guard
+        let urlPath = path,
+        let bundle = NSBundle(URL: urlPath) else {
         return ""
       }
-        
+
       if let languageBundle = getLanguageBundle(bundle) {
         return languageBundle.localizedStringForKey(key, value: "", table: "NSDateTimeAgo")
       }
