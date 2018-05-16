@@ -1,6 +1,6 @@
 # SwiftMoment
 
-[![Build Status](https://travis-ci.org/akosma/SwiftMoment.svg?branch=master)](https://travis-ci.org/akosma/SwiftMoment)
+[![Join the chat at https://gitter.im/SwiftMoment/Lobby](https://badges.gitter.im/SwiftMoment/Lobby.svg)](https://gitter.im/SwiftMoment/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/akosma/SwiftMoment.svg?branch=master)](https://travis-ci.org/akosma/SwiftMoment)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SwiftMoment.svg)](https://img.shields.io/cocoapods/v/SwiftMoment)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftMoment.svg?style=flat)](http://cocoadocs.org/docsets/SwiftMoment)
@@ -15,7 +15,7 @@ objectives are the following:
 - Streamlining getting date components (day, month, etc.) from dates and
   time intervals.
 
-Important: This framework supports iOS 8+, macOS 10.10+, tvOS 9+, watchOS 2+, Xcode 7 and Swift 2.2.
+Important: This framework supports iOS 9+, macOS 10.11+, tvOS 9+, watchOS 2+, Xcode 8 and Swift 3.
 
 ## Installation
 

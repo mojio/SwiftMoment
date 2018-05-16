@@ -11,40 +11,77 @@
 
 import Foundation
 
-/**
- Returns a moment representing the current instant in time at the current timezone
-
- - parameter timeZone:   An NSTimeZone object
- - parameter locale:     An NSLocale object
-
- - returns: A moment instance.
- */
-public func moment(timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment {
+/// Returns a moment representing the current instant in time at the current timezone.
+/// This is the most common way to create a new Moment value:
+///
+///     let today = moment()
+///
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: A Moment value.
+public func moment(_ timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment {
     return Moment(timeZone: timeZone, locale: locale)
 }
 
+
+/// Returns a moment representing the current instant in the GMT / UTC timezone:
+///
+///     let greenwich = utc()
+///     let str = greenwich.format("ZZZZ")
+///     // str is "GMT"
+///
+/// - returns: A Moment value with the GMT / UTC timezone.
 public func utc() -> Moment {
-    let zone = NSTimeZone(abbreviation: "UTC")!
+    let zone = TimeZone(abbreviation: "UTC")!
     return moment(zone)
 }
 
-/**
- Returns an Optional wrapping a Moment structure, representing the
- current instant in time. If the string passed as parameter cannot be
- parsed by the function, the Optional wraps a nil value.
 
- - parameter stringDate: A string with a date representation.
- - parameter timeZone:   An NSTimeZone object
- - parameter locale:     An NSLocale object
+/// Returns an Optional wrapping a Moment structure, representing the
+/// current instant in time. If the string passed as parameter is invalid,
+/// the Optional wraps a nil value.
+///
+/// Valid date format strings:
+///
+/// - "yyyy-MM-dd'T'HH:mm:ssZZZZZ" (ISO)
+/// - "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+/// - "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"
+/// - "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+/// - "yyyy-MM-dd"
+/// - "h:mm:ss A"
+/// - "h:mm A"
+/// - "MM/dd/yyyy"
+/// - "MMMM d, yyyy"
+/// - "MMMM d, yyyy LT"
+/// - "dddd, MMMM D, yyyy LT"
+/// - "yyyyyy-MM-dd"
+/// - "yyyy-MM-dd"
+/// - "GGGG-[W]WW-E"
+/// - "GGGG-[W]WW"
+/// - "yyyy-ddd"
+/// - "HH:mm:ss.SSSS"
+/// - "HH:mm:ss"
+/// - "HH:mm"
+/// - "HH"
+///
+/// Usage:
+///
+///     let dateString = "2016-10-12T10:02:50"
+///     let birthday = moment(dateString)
+///     // birthday is not nil
+///
+/// - parameter stringDate: A string with a valid date format, as required by NSDateFormatter
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: An optional Moment value.
+public func moment(_ stringDate: String,
+                   timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment? {
 
- - returns: <#return value description#>
- */
-public func moment(stringDate: String,
-                   timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment? {
-
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     formatter.timeZone = timeZone
     formatter.locale = locale
     let isoFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
@@ -78,42 +115,68 @@ public func moment(stringDate: String,
     for format in formats {
         formatter.dateFormat = format
 
-        if let date = formatter.dateFromString(stringDate) {
+        if let date = formatter.date(from: stringDate) {
             return Moment(date: date, timeZone: timeZone, locale: locale)
         }
     }
     return nil
 }
 
-public func moment(stringDate: String, dateFormat: String,
-                   timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment? {
-    let formatter = NSDateFormatter()
+
+/// Builds a Moment value using a date in string format, using the second
+/// parameter to know how to parse the values. If any of the parameters is
+/// invalid, the function returns nil.
+///
+///     let date = "2016-10-12T10:02:50"
+///     let format = "yyy-MM-dd'T'HH:mm:ss"
+///     let birthday = moment(date, dateFormat: format)
+///     // birthday is not nil
+///
+/// - parameter stringDate: A string with the date to parse.
+/// - parameter dateFormat: A string with the specification of the format.
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: An optional Moment value.
+public func moment(_ stringDate: String,
+                   dateFormat: String,
+                   timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment? {
+    let formatter = DateFormatter()
     formatter.dateFormat = dateFormat
     formatter.timeZone = timeZone
     formatter.locale = locale
-    if let date = formatter.dateFromString(stringDate) {
+    if let date = formatter.date(from: stringDate) {
         return Moment(date: date, timeZone: timeZone, locale: locale)
     }
     return nil
 }
 
-/**
- Builds a new Moment instance using an array with the following components,
- in the following order: [ year, month, day, hour, minute, second ]
 
- - parameter params:   An array of integer values as date components
- - parameter timeZone: An NSTimeZone object
- - parameter locale:   An NSLocale object
-
- - returns: An optional wrapping a Moment instance
- */
-public func moment(params: [Int], timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment? {
+/// Builds a new Moment instance using an array with the following components,
+/// in the following order: [ year, month, day, hour, minute, second ]. This means
+/// that the first element of the array will always be taken as the year, the second
+/// as the month, and so on. If any of the parameters is invalid, the function will
+/// return nil.
+///
+///     let obj = moment([2015, 01, 19, 20, 45, 34])
+///     // obj is not only not nil, it points to January 19th 2015 at 20:45:34
+///     // in the current timezone.
+///
+/// When the array is incomplete, the function will fill the missing parameters with
+/// the first logical value, for example midnight or the first of January.
+///
+/// - parameter params:   An array of integer values as date components
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: An optional wrapping a Moment instance.
+public func moment(_ params: [Int],
+                   timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment? {
     if params.count > 0 {
-        let calendar = NSCalendar.currentCalendar()
-        calendar.timeZone = timeZone
-        let components = NSDateComponents()
+        let calendar = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        var components = DateComponents()
         components.year = params[0]
 
         if params.count > 1 {
@@ -132,15 +195,44 @@ public func moment(params: [Int], timeZone: NSTimeZone = NSTimeZone.defaultTimeZ
             }
         }
 
-        if let date = calendar.dateFromComponents(components) {
+        if let date = calendar.date(from: components) {
             return moment(date, timeZone: timeZone, locale: locale)
         }
     }
     return nil
 }
 
-public func moment(dict: [String: Int], timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment? {
+
+/// Builds a Moment value using the dictionary of values passed as first parameter:
+/// If all keys in the dictionary are invalid, the function returns nil.
+///
+/// Valid keys:
+///
+/// - "year"
+/// - "month"
+/// - "day"
+/// - "hour"
+/// - "minute"
+/// - "second"
+///
+/// Example:
+///
+///     let obj = moment(["year": 2015,
+///                       "second": 34,
+///                       "month": 01,
+///                       "minute": 45,
+///                       "day": 19,
+///                       "hour": 20,
+///                       "ignoredKey": 2342432])!
+///
+/// - parameter dict:     A Dictionary of string keys and integer values.
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: An optional Moment value.
+public func moment(_ dict: [String: Int],
+                   timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment? {
     if dict.count > 0 {
         var params = [Int]()
         if let year = dict["year"] {
@@ -166,41 +258,125 @@ public func moment(dict: [String: Int], timeZone: NSTimeZone = NSTimeZone.defaul
     return nil
 }
 
-public func moment(milliseconds: Int) -> Moment {
-    return moment(NSTimeInterval(milliseconds / 1000))
+
+/// Builds a Moment value corresponding to the number of milliseconds since the Unix Epoch.
+///
+///     let epoch = moment(0)
+///     // Represents the origin of Unix time
+///
+/// - parameter milliseconds: An integer value with milliseconds.
+///
+/// - returns: A non-optional Moment value.
+public func moment(_ milliseconds: Int) -> Moment {
+    return moment(TimeInterval(milliseconds / 1000))
 }
 
-public func moment(seconds: NSTimeInterval) -> Moment {
-    let interval = NSTimeInterval(seconds)
-    let date = NSDate(timeIntervalSince1970: interval)
+
+/// Builds a Moment value corresponding to the number of seconds since the Unix Epoch.
+///
+///     let epoch = moment(0.0)
+///     // Represents the origin of Unix time
+///
+/// - parameter milliseconds: A TimeInterval value with seconds.
+///
+/// - returns: A non-optional Moment value.
+public func moment(_ seconds: TimeInterval) -> Moment {
+    let interval = TimeInterval(seconds)
+    let date = Date(timeIntervalSince1970: interval)
     return Moment(date: date)
 }
 
-public func moment(date: NSDate, timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-                   locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) -> Moment {
+
+/// Builds a Moment value using the Date value passed as parameter.
+/// This is another very common way to create new Moment values.
+///
+///     let date = Date()
+///     let now = moment(date)
+///
+/// - parameter date:     A Foundation Date object.
+/// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+/// - parameter locale:   An optional Locale value, defaulting to the current locale
+///
+/// - returns: A non-optional Moment value.
+public func moment(_ date: Date,
+                   timeZone: TimeZone = TimeZone.current,
+                   locale: Locale = Locale.autoupdatingCurrent) -> Moment {
     return Moment(date: date, timeZone: timeZone, locale: locale)
 }
 
-public func moment(moment: Moment) -> Moment {
-    let copy = (moment.date.copy() as? NSDate)!
-    let timeZone = (moment.timeZone.copy() as? NSTimeZone)!
-    let locale = (moment.locale.copy() as? NSLocale)!
-    return Moment(date: copy, timeZone: timeZone, locale: locale)
+
+/// Copies a Moment value and returns a new one.
+///
+///     let epoch = moment(0)
+///     let copy = moment(epoch)
+///
+/// - parameter moment: The Moment value to copy.
+///
+/// - returns: A new Moment value, with the same date, timezone and locale as the original.
+public func moment(_ moment: Moment) -> Moment {
+    let date = moment.date
+    let timeZone = moment.timeZone
+    let locale = moment.locale
+    return Moment(date: date, timeZone: timeZone, locale: locale)
 }
 
+/// Copies a Moment value and returns a new one, with a new timezone.
+///
+///     let timeZone = TimeZone(secondsFromGMT: -10800)!
+///     let locale = Locale(identifier: "en_US_POSIX")
+///     let dateString = "2016-10-12T10:02:50"
+///     let dateFormat = "yyy-MM-dd'T'HH:mm:ss"
+///     let birthday = moment(dateString, dateFormat: dateFormat, timeZone: timeZone, locale: locale)!
+///     let formatted = birthday.format(dateFormat)
+///
+///     let pacific = TimeZone(abbreviation: "PST")!
+///     let birthdayInSF = moment(birthday, timeZone: pacific)
+///
+///     XCTAssertEqual(birthday.hour, 10)
+///     XCTAssertEqual(birthday.minute, 2)
+///     XCTAssertEqual(birthdayInSF.hour, 6)
+///     XCTAssertEqual(birthdayInSF.minute, 2)
+///
+/// - parameter moment: The Moment value to copy.
+///
+/// - returns: A new Moment value, with the same date, timezone and locale as the original.
+public func moment(_ moment: Moment, timeZone: TimeZone) -> Moment {
+    let date = moment.date
+    let locale = moment.locale
+    return Moment(date: date, timeZone: timeZone, locale: locale)
+}
+
+
+/// Returns a Moment value set in the distant past.
+///
+/// - returns: A Moment value set in the distant past.
 public func past() -> Moment {
-    return Moment(date: NSDate.distantPast() )
+    return Moment(date: Date.distantPast)
 }
 
+
+/// Returns a Moment value set in the distant future.
+///
+/// - returns: A Moment value set in the distant future.
 public func future() -> Moment {
-    return Moment(date: NSDate.distantFuture() )
+    return Moment(date: Date.distantFuture)
 }
 
-public func since(past: Moment) -> Duration {
+/// Returns the Duration that separates the current moment from another one.
+///
+/// - parameter past: The moment to compare to the current moment.
+///
+/// - returns: A Duration value.
+public func since(_ past: Moment) -> Duration {
     return moment().intervalSince(past)
 }
 
-public func maximum(moments: Moment...) -> Moment? {
+/// Returns the maximum, that is, the latest of all values passed in parameter.
+///
+/// - parameter moments: A sequence of Moment values.
+///
+/// - returns: The latest Moment value in the sequence.
+public func maximum(_ moments: Moment...) -> Moment? {
     if moments.count > 0 {
         var max: Moment = moments[0]
         for moment in moments {
@@ -213,7 +389,12 @@ public func maximum(moments: Moment...) -> Moment? {
     return nil
 }
 
-public func minimum(moments: Moment...) -> Moment? {
+/// Returns the minimum, that is, the earliest of all values passed in parameter.
+///
+/// - parameter moments: A sequence of Moment values.
+///
+/// - returns: The earliest Moment value in the sequence.
+public func minimum(_ moments: Moment...) -> Moment? {
     if moments.count > 0 {
         var min: Moment = moments[0]
         for moment in moments {
@@ -226,333 +407,586 @@ public func minimum(moments: Moment...) -> Moment? {
     return nil
 }
 
-/**
- Internal structure used by the family of moment() functions.
- Instead of modifying the native NSDate class, this is a
- wrapper for the NSDate object. To get this wrapper object, simply
- call moment() with one of the supported input types.
-*/
+
+/// Internal structure used by the `moment()` family of functions.
+/// It wraps a Foundation `Date`, a `TimeZone` and a `Locale` value.
+/// To create one of these values, call one of the `moment()` family of functions.
 public struct Moment: Comparable {
-    public let minuteInSeconds = 60
-    public let hourInSeconds = 3600
-    public let dayInSeconds = 86400
-    public let weekInSeconds = 604800
-    public let monthInSeconds = 2592000
-    public let yearInSeconds = 31536000
+    internal static let minuteInSeconds: Double = 60
+    internal static let hourInSeconds: Double = 3600
+    internal static let dayInSeconds: Double = 86400
+    internal static let weekInSeconds: Double = 604800
+    internal static let monthInSeconds: Double = 2592000
+    internal static let quarterInSeconds: Double = 7776000
+    internal static let yearInSeconds: Double = 31536000
 
-    public let date: NSDate
-    public let timeZone: NSTimeZone
-    public let locale: NSLocale
+    /// The Date wrapped by this value.
+    public let date: Date
 
-    init(date: NSDate = NSDate(), timeZone: NSTimeZone = NSTimeZone.defaultTimeZone(),
-         locale: NSLocale = NSLocale.autoupdatingCurrentLocale()) {
+    // The TimeZone value wrapped by this object.
+    public let timeZone: TimeZone
+
+    // The Locale value wrapped by this instance.
+    public let locale: Locale
+
+    private let lazyFormatter = LazyBox<DateFormatter> {
+        return DateFormatter()
+    }
+
+    private var formatter: DateFormatter {
+        return lazyFormatter.value
+    }
+
+    /// Initializes a new Moment value.
+    ///
+    /// - parameter date:     The date wrapped by the Moment value.
+    /// - parameter timeZone: A TimeZone value.
+    /// - parameter locale:   A Locale value.
+    ///
+    /// - returns: A new Moment value.
+    init(date: Date = Date(), timeZone: TimeZone = TimeZone.current,
+         locale: Locale = Locale.autoupdatingCurrent) {
         self.date = date
         self.timeZone = timeZone
         self.locale = locale
     }
 
-    /// Returns the year of the current instance.
+    /// Year of the current instance.
     public var year: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Year, fromDate: date)
-        return components.year
+        let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.year]
+        let components = cal.dateComponents(param, from: date)
+        return components.year!
     }
 
-    /// Returns the month (1-12) of the current instance.
+    /// Month (1-12) of the current instance.
     public var month: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Month, fromDate: date)
-        return components.month
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.month]
+        let components = cal.dateComponents(param, from: date)
+        return components.month!
     }
 
-    /// Returns the name of the month of the current instance, in the current locale.
+    /// Name of the month of the current instance, in the current locale.
     public var monthName: String {
-        let formatter = NSDateFormatter()
+        formatter.timeZone = timeZone
         formatter.locale = locale
         return formatter.monthSymbols[month - 1]
     }
 
+    /// Day of the month (1-31) of the current instance.
     public var day: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Day, fromDate: date)
-        return components.day
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.day]
+        let components = cal.dateComponents(param, from: date)
+        return components.day!
     }
 
+    /// Hour (0-23) of the current instance.
     public var hour: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Hour, fromDate: date)
-        return components.hour
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.hour]
+        let components = cal.dateComponents(param, from: date)
+        return components.hour!
     }
 
+    /// Minutes (0-59) of the current instance.
     public var minute: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Minute, fromDate: date)
-        return components.minute
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.minute]
+        let components = cal.dateComponents(param, from: date)
+        return components.minute!
     }
 
+    /// Seconds (0-59) of the current instance.
     public var second: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Second, fromDate: date)
-        return components.second
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.second]
+        let components = cal.dateComponents(param, from: date)
+        return components.second!
     }
 
+    /// Weekday (1-7, Sunday is 1) of the current instance.
     public var weekday: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.timeZone = timeZone
-        cal.locale = locale
-        let components = cal.components(.Weekday, fromDate: date)
-        return components.weekday
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.weekday]
+        let components = cal.dateComponents(param, from: date)
+        return components.weekday!
     }
 
+    /// Localized name of the day of the current instance.
     public var weekdayName: String {
-        let formatter = NSDateFormatter()
         formatter.locale = locale
         formatter.dateFormat = "EEEE"
         formatter.timeZone = timeZone
-        return formatter.stringFromDate(date)
+        return formatter.string(from: date)
     }
 
+    /// Weekday ordinal of the current instance. Taken from the `Calendar` documentation:
+    /// "Weekday ordinal units represent the position of the weekday
+    /// within the next larger calendar unit, such as the month.
+    /// For example, 2 is the weekday ordinal unit for the second Friday of the month."
     public var weekdayOrdinal: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.locale = locale
-        cal.timeZone = timeZone
-        let components = cal.components(.WeekdayOrdinal, fromDate: date)
-        return components.weekdayOrdinal
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.weekdayOrdinal]
+        let components = cal.dateComponents(param, from: date)
+        return components.weekdayOrdinal!
     }
 
+    /// Number of the week in the current year of the current instance.
     public var weekOfYear: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.locale = locale
-        cal.timeZone = timeZone
-        let components = cal.components(.WeekOfYear, fromDate: date)
-        return components.weekOfYear
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.weekOfYear]
+        let components = cal.dateComponents(param, from: date)
+        return components.weekOfYear!
     }
 
+    /// Quarter of the year of the current instance.
     public var quarter: Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.locale = locale
-        cal.timeZone = timeZone
-        let components = cal.components(.Quarter, fromDate: date)
-        return components.quarter
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        let param: Set<Calendar.Component> = [.quarter]
+        let components = cal.dateComponents(param, from: date)
+        return components.quarter!
     }
 
-    // Methods
-
-    public func get(unit: TimeUnit) -> Int? {
+    /// Gets the specified value of the current instance.
+    ///
+    ///     let today = moment()
+    ///     let hours = today.get(.Hours)
+    ///
+    /// - parameter unit: A TimeUnit value, specifying the element to retrieve.
+    ///
+    /// - returns: A non-optional integer value.
+    public func get(_ unit: TimeUnit) -> Int {
         switch unit {
-        case .Seconds:
+        case .seconds:
             return second
-        case .Minutes:
+        case .minutes:
             return minute
-        case .Hours:
+        case .hours:
             return hour
-        case .Days:
+        case .days:
             return day
-        case .Weeks:
+        case .weeks:
             return weekOfYear
-        case .Months:
+        case .months:
             return month
-        case .Quarters:
+        case .quarters:
             return quarter
-        case .Years:
+        case .years:
             return year
         }
     }
 
-    public func get(unitName: String) -> Int? {
+    /// Gets the specified value of the current instance. If the string
+    /// passed as parameter does not evaluate to a `TimeUnit` instance,
+    /// this method returns nil.
+    ///
+    /// Valid values:
+    ///
+    /// - `.years` = "y"
+    /// - `.quarters` = "Q"
+    /// - `.months` = "M"
+    /// - `.weeks` = "w"
+    /// - `.days` = "d"
+    /// - `.hours` = "H"
+    /// - `.minutes` = "m"
+    /// - `.seconds` = "s"
+    ///
+    /// Example:
+    ///
+    ///     let today = moment()
+    ///     let hours = today.get("H")!
+    ///
+    /// - parameter unit: A TimeUnit value, specifying the element to retrieve.
+    ///
+    /// - returns: An optional integer value.
+    public func get(_ unitName: String) -> Int? {
         if let unit = TimeUnit(rawValue: unitName) {
             return get(unit)
         }
         return nil
     }
 
-    public func format(dateFormat: String = "yyyy-MM-dd HH:mm:ss ZZZZ") -> String {
-        let formatter = NSDateFormatter()
+    /// Formats the current moment using the string passed as parameter.
+    /// If no format is specified, the default format is `"yyyy-MM-dd HH:mm:ss ZZZZ"`
+    ///
+    ///     let birthday = moment("1973-09-04")
+    ///     let standard = birthday.format()
+    ///     // standard is now "1973-09-04 00:00:00 GMT+01:00"
+    ///
+    /// - parameter dateFormat: A valid format string.
+    ///
+    /// - returns: A string representing the current moment.
+    public func format(_ dateFormat: String = "yyyy-MM-dd HH:mm:ss ZZZZ") -> String {
         formatter.dateFormat = dateFormat
         formatter.timeZone = timeZone
         formatter.locale = locale
-        return formatter.stringFromDate(date)
+        return formatter.string(from: date)
     }
 
-    public func isEqualTo(moment: Moment) -> Bool {
-        return date.isEqualToDate(moment.date)
+    /// Formats the current moment using the string and timezone passed as parameter.
+    /// If no format is specified, the default format is `"yyyy-MM-dd HH:mm:ss ZZZZ"`
+    ///
+    ///     let cet = TimeZone(abbreviation: "CET")!
+    ///     let birthday = moment("1973-09-04", timeZone: cet)!
+    ///     let pst = TimeZone(abbreviation: "PST")!
+    ///     let str = birthday.format("EE QQQQ yyyy/dd/MMMM HH:mm ZZZZ", pst)
+    ///     // str shows the time in the Pacific time zone for that event
+    ///
+    /// - parameter dateFormat: A valid format string.
+    /// - parameter timeZone: An optional TimeZone value, defaulting to the current timezone
+    ///
+    /// - returns: A string representing the current moment in the specified timezone.
+    public func format(_ dateFormat: String = "yyyy-MM-dd HH:mm:ss ZZZZ",
+                       _ timeZone: TimeZone = TimeZone.current) -> String {
+        formatter.dateFormat = dateFormat
+        formatter.timeZone = timeZone
+        formatter.locale = locale
+        return formatter.string(from: date)
     }
 
-    public func intervalSince(moment: Moment) -> Duration {
-        let interval = date.timeIntervalSinceDate(moment.date)
+    /// Verifies whether the current Moment is equal to the one passed in parameter.
+    ///
+    /// - parameter moment: The Moment value to compare to.
+    ///
+    /// - returns: A boolean value; true if equal, false otherwise.
+    public func isEqualTo(_ moment: Moment) -> Bool {
+        //return date == moment.date // this is occasionally failing in the tests even though the timeIntervalSince1970 and description are matching
+        // Try printing the comparison and running testAddingOtherValues multiple times
+        // print("should be equal? \(date == moment.date)")
+        return date.timeIntervalSince1970 == moment.date.timeIntervalSince1970
+    }
+
+    /// Returns the `Duration` value that represents the time interval between
+    /// the current instance and the one passed in parameter.
+    ///
+    /// - parameter moment: The Moment value to compare to.
+    ///
+    /// - returns: A Duration value.
+    public func intervalSince(_ moment: Moment) -> Duration {
+        let interval = date.timeIntervalSince(moment.date)
         return Duration(value: interval)
     }
 
-    public func add(value: Int, _ unit: TimeUnit) -> Moment {
-        let components = NSDateComponents()
+    /// Adds the specified value in the specified time unit to the current
+    /// instance and returns a new Moment instance.
+    ///
+    ///     let old = moment("2016-07-01")!
+    ///     let new = problem.add(1, .Months)
+    ///     let expected = moment("2016-07-31")!
+    ///     // and "new" is equal to "expected"
+    ///
+    /// - parameter value: The amount to add.
+    /// - parameter unit:  The unit of the amount to add.
+    ///
+    /// - returns: A new Moment instance.
+    public func add(_ value: Int, _ unit: TimeUnit) -> Moment {
+        var interval = Double(value)
         switch unit {
-        case .Years:
-            components.year = value
-        case .Quarters:
-            components.month = 3 * value
-        case .Months:
-            components.month = value
-        case .Weeks:
-            components.day = 7 * value
-        case .Days:
-            components.day = value
-        case .Hours:
-            components.hour = value
-        case .Minutes:
-            components.minute = value
-        case .Seconds:
-            components.second = value
+        case .years:
+            interval = value.years.interval
+        case .quarters:
+            interval = value.quarters.interval
+        case .months:
+            interval = value.months.interval
+        case .weeks:
+            interval = value.weeks.interval
+        case .days:
+            interval = value.days.interval
+        case .hours:
+            interval = value.hours.interval
+        case .minutes:
+            interval = value.minutes.interval
+        case .seconds:
+            interval = Double(value)
         }
-        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        cal.timeZone = timeZone
-        cal.locale = locale
-        if let newDate = cal.dateByAddingComponents(components, toDate: date,
-                                                    options: NSCalendarOptions.init(rawValue: 0)) {
-          return Moment(date: newDate)
-        }
-        return self
+        return add(TimeInterval(interval), .seconds)
     }
 
-    public func add(value: NSTimeInterval, _ unit: TimeUnit) -> Moment {
+    /// Adds the specified value in the specified TimeInterval to the current
+    /// instance and returns a new Moment instance.
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom2 = mom1.add(1.0, .Months)
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     // mom2 is equal to mom3, because duration adds exactly 30 days
+    ///
+    /// - parameter value: The amount to add.
+    /// - parameter unit:  The unit of the amount to add.
+    ///
+    /// - returns: A new Moment instance.
+    public func add(_ value: TimeInterval, _ unit: TimeUnit) -> Moment {
+		guard value != 0 else { return self }
+        func convert(_ value: Double, _ unit: TimeUnit) -> Double {
+            switch unit {
+            case .seconds:
+                return value
+            case .minutes:
+                return value * Moment.minuteInSeconds
+            case .hours:
+                return value * Moment.hourInSeconds // 60 minutes
+            case .days:
+                return value * Moment.dayInSeconds // 24 hours
+            case .weeks:
+                return value * Moment.weekInSeconds // 7 days
+            case .months:
+                return value * Moment.monthInSeconds // 30 days
+            case .quarters:
+                return value * Moment.quarterInSeconds // 3 months
+            case .years:
+                return value * Moment.yearInSeconds // 365 days
+            }
+        }
+
         let seconds = convert(value, unit)
-        let interval = NSTimeInterval(seconds)
-        let newDate = date.dateByAddingTimeInterval(interval)
-        return Moment(date: newDate)
+        let interval = TimeInterval(seconds)
+        let newDate = date.addingTimeInterval(interval)
+        return Moment(date: newDate, timeZone: timeZone, locale: locale)
     }
 
-    public func add(value: Int, _ unitName: String) -> Moment {
-        if let unit = TimeUnit(rawValue: unitName) {
-            return add(value, unit)
-        }
-        return self
+    /// Adds the specified value in the specified TimeInterval to the current
+    /// instance and returns a new Moment instance.
+    ///
+    /// Valid unit values:
+    ///
+    /// - `.years` = "y"
+    /// - `.quarters` = "Q"
+    /// - `.months` = "M"
+    /// - `.weeks` = "w"
+    /// - `.days` = "d"
+    /// - `.hours` = "H"
+    /// - `.minutes` = "m"
+    /// - `.seconds` = "s"
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom2 = mom1.add(1, "M")
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     // mom2 is equal to mom3, because duration adds exactly 30 days
+    ///
+    /// - parameter value: The amount to add.
+    /// - parameter unit:  The name of the unit of the amount to add.
+    ///
+    /// - returns: A new Moment instance.
+    public func add(_ value: Int, _ unitName: String) -> Moment {
+		guard value != 0 else { return self }
+		guard let unit = TimeUnit(rawValue: unitName) else { return self }
+		return add(value, unit)
     }
 
-    public func add(duration: Duration) -> Moment {
-        return add(duration.interval, .Seconds)
+    /// Adds the specified duration to the current instance and returns a new Moment.
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom2 = mom1.add(1.months)
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     // mom2 is equal to mom3, because duration adds exactly 30 days
+    ///
+    /// - parameter duration: The duration to add.
+    ///
+    /// - returns: A new Moment instance.
+    public func add(_ duration: Duration) -> Moment {
+        return add(duration.interval, .seconds)
     }
 
-    public func subtract(value: NSTimeInterval, _ unit: TimeUnit) -> Moment {
+    /// Substracts the specified value in the specified TimeInterval to the current
+    /// instance and returns a new Moment instance.
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     let mom2 = mom3.substract(1.0, .Months)
+    ///     // mom2 is equal to mom1, because duration equals exactly 30 days
+    ///
+    /// - parameter value: The amount to substract.
+    /// - parameter unit:  The unit of the amount to substract.
+    ///
+    /// - returns: A new Moment instance.
+    public func subtract(_ value: Int, _ unit: TimeUnit) -> Moment {
         return add(-value, unit)
     }
 
-    public func subtract(value: Int, _ unit: TimeUnit) -> Moment {
+    /// Subtracts the specified value in the specified TimeInterval to the current
+    /// instance and returns a new Moment instance.
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     let mom2 = mom3.subtract(1.0, .Months)
+    ///     // mom2 is equal to mom1, because duration equals exactly 30 days
+    ///
+    /// - parameter value: The amount to subtract.
+    /// - parameter unit:  The unit of the amount to subtract.
+    ///
+    /// - returns: A new Moment instance.
+    public func subtract(_ value: TimeInterval, _ unit: TimeUnit) -> Moment {
         return add(-value, unit)
     }
 
-    public func subtract(value: Int, _ unitName: String) -> Moment {
-        if let unit = TimeUnit(rawValue: unitName) {
-            return subtract(value, unit)
-        }
-        return self
+    /// Subtracts the specified value in the specified TimeInterval to the current
+    /// instance and returns a new Moment instance.
+    ///
+    /// Valid unit values:
+    ///
+    /// - `.years` = "y"
+    /// - `.quarters` = "Q"
+    /// - `.months` = "M"
+    /// - `.weeks` = "w"
+    /// - `.days` = "d"
+    /// - `.hours` = "H"
+    /// - `.minutes` = "m"
+    /// - `.seconds` = "s"
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     let mom2 = mom3.subtract(1, "M")
+    ///     // mom2 is equal to mom1, because duration equals exactly 30 days
+    ///
+    /// - parameter value: The amount to subtract.
+    /// - parameter unit:  The name of the unit of the amount to substract.
+    ///
+    /// - returns: A new Moment instance.
+    public func subtract(_ value: Int, _ unitName: String) -> Moment {
+		guard value != 0 else { return self }
+		guard let unit = TimeUnit(rawValue: unitName) else { return self }
+		return subtract(value, unit)
     }
 
-    public func subtract(duration: Duration) -> Moment {
-        return subtract(duration.interval, .Seconds)
+    /// Subtracts the specified duration to the current instance and returns a new Moment.
+    ///
+    ///     let mom1 = moment([2015, 7, 29, 0, 0])!
+    ///     let mom3 = moment([2015, 8, 28, 0, 0])!
+    ///     let mom2 = mom3.substract(1.months)
+    ///     // mom2 is equal to mom1, because duration equals exactly 30 days
+    ///
+    /// - parameter duration: The duration to subtract.
+    ///
+    /// - returns: A new Moment instance.
+    public func subtract(_ duration: Duration) -> Moment {
+        return subtract(duration.interval, .seconds)
     }
 
-    public func isCloseTo(moment: Moment, precision: NSTimeInterval = 300) -> Bool {
-        // "Being close" is measured using a precision argument
-        // which is initialized a 300 seconds, or 5 minutes.
+    /// Decides whether a moment is "close by" another one passed in parameter,
+    /// where "Being close" is measured using a precision argument
+    /// which is initialized a 300 seconds, or 5 minutes.
+    ///
+    /// - parameter moment:    The moment used for the comparison.
+    /// - parameter precision: The precision of the comparison, initialized at 300 seconds
+    ///
+    /// - returns: A boolean; true if close by, false otherwise.
+    public func isCloseTo(_ moment: Moment, precision: TimeInterval = 300) -> Bool {
         let delta = intervalSince(moment)
         return abs(delta.interval) < precision
     }
 
-    public func startOf(unit: TimeUnit) -> Moment {
-        let cal = NSCalendar.currentCalendar()
-        var newDate: NSDate?
-        let components = cal.components([.Year, .Month, .Weekday, .Day, .Hour, .Minute, .Second],
-                                        fromDate: date)
+    /// Returns a new Moment that is initialized at the start of a specified unit of time.
+    ///
+    /// - parameter unit: A TimeUnit value.
+    ///
+    /// - returns: A new Moment instance.
+    public func startOf(_ unit: TimeUnit) -> Moment {
+		let cal = MomentCache.calendar(timeZone: timeZone, locale: locale)
+        var newDate: Date?
+        let param: Set<Calendar.Component> = [.year, .month, .weekday, .day, .hour, .minute, .second]
+        var components = cal.dateComponents(param, from: date)
         switch unit {
-        case .Seconds:
+        case .seconds:
             return self
-        case .Years:
+        case .years:
             components.month = 1
             fallthrough
-        case .Quarters, .Months, .Weeks:
-            if unit == .Weeks {
-                components.day -= (components.weekday - 2)
+        case .quarters, .months, .weeks:
+            if unit == .weeks {
+                components.day = components.day! - ((components.weekday! - cal.firstWeekday) + 7) % 7
             } else {
                 components.day = 1
             }
             fallthrough
-        case .Days:
+        case .days:
             components.hour = 0
             fallthrough
-        case .Hours:
+        case .hours:
             components.minute = 0
             fallthrough
-        case .Minutes:
+        case .minutes:
             components.second = 0
         }
-        newDate = cal.dateFromComponents(components)
-        return newDate == nil ? self : Moment(date: newDate!)
+        newDate = cal.date(from: components)
+        return newDate == nil ? self : Moment(date: newDate!, timeZone: timeZone)
     }
 
-    public func startOf(unitName: String) -> Moment {
+    /// Returns a new Moment that is initialized at the start of a specified unit of time.
+    ///
+    /// Valid unit values:
+    ///
+    /// - `.years` = "y"
+    /// - `.quarters` = "Q"
+    /// - `.months` = "M"
+    /// - `.weeks` = "w"
+    /// - `.days` = "d"
+    /// - `.hours` = "H"
+    /// - `.minutes` = "m"
+    /// - `.seconds` = "s"
+    ///
+    /// - parameter unit: The name of a TimeUnit value.
+    ///
+    /// - returns: A new Moment instance.
+    public func startOf(_ unitName: String) -> Moment {
         if let unit = TimeUnit(rawValue: unitName) {
             return startOf(unit)
         }
         return self
     }
 
-    public func endOf(unit: TimeUnit) -> Moment {
+    /// Returns a new Moment that is initialized at the end of a specified unit of time.
+    ///
+    /// - parameter unit: A TimeUnit value.
+    ///
+    /// - returns: A new Moment instance.
+    public func endOf(_ unit: TimeUnit) -> Moment {
         return startOf(unit).add(1, unit).subtract(1.seconds)
     }
 
-    public func endOf(unitName: String) -> Moment {
+    /// Returns a new Moment that is initialized at the end of a specified unit of time.
+    ///
+    /// Valid unit values:
+    ///
+    /// - `.years` = "y"
+    /// - `.quarters` = "Q"
+    /// - `.months` = "M"
+    /// - `.weeks` = "w"
+    /// - `.days` = "d"
+    /// - `.hours` = "H"
+    /// - `.minutes` = "m"
+    /// - `.seconds` = "s"
+    ///
+    /// - parameter unit: The name of a TimeUnit value.
+    ///
+    /// - returns: A new Moment instance.
+    public func endOf(_ unitName: String) -> Moment {
         if let unit = TimeUnit(rawValue: unitName) {
             return endOf(unit)
         }
         return self
     }
 
-    public func epoch() -> NSTimeInterval {
+    /// Returns the TimeInterval since the Unix epoch to the current instance.
+    ///
+    /// - returns: A TimeInterval value.
+    public func epoch() -> TimeInterval {
         return date.timeIntervalSince1970
     }
 
-    // Private methods
-
-    func convert(value: Double, _ unit: TimeUnit) -> Double {
-        switch unit {
-        case .Seconds:
-            return value
-        case .Minutes:
-            return value * 60
-        case .Hours:
-            return value * 3600 // 60 minutes
-        case .Days:
-            return value * 86400 // 24 hours
-        case .Weeks:
-            return value * 605800 // 7 days
-        case .Months:
-            return value * 2592000 // 30 days
-        case .Quarters:
-            return value * 7776000 // 3 months
-        case .Years:
-            return value * 31536000 // 365 days
-        }
-    }
 }
 
 extension Moment: CustomStringConvertible {
+
+    /// A textual representation of this instance.
     public var description: String {
         return format()
     }
 }
 
 extension Moment: CustomDebugStringConvertible {
+
+    /// A textual representation of this instance, suitable for debugging.
     public var debugDescription: String {
         return description
     }

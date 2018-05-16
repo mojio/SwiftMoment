@@ -6,13 +6,23 @@
 //  Copyright (c) 2015 Adrian Kosmaczewski. All rights reserved.
 //
 
+/// Represents different time units.
+///
+/// - years:    Represents year units.
+/// - quarters: Represents quarter units.
+/// - months:   Represents month units.
+/// - weeks:    Represents week units.
+/// - days:     Represents day units.
+/// - hours:    Represents hour units.
+/// - minutes:  Represents minute units.
+/// - seconds:  Represents second units.
 public enum TimeUnit: String {
-    case Years = "y"
-    case Quarters = "Q"
-    case Months = "M"
-    case Weeks = "w"
-    case Days = "d"
-    case Hours = "H"
-    case Minutes = "m"
-    case Seconds = "s"
+    case years = "y"
+    case quarters = "Q"
+    case months = "M"
+    case weeks = "w"
+    case days = "d"
+    case hours = "H"
+    case minutes = "m"
+    case seconds = "s"
 }

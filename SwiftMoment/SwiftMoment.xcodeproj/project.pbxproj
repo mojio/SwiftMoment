@@ -36,6 +36,9 @@
 		28C0DBCD1D057E4000279645 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0FB8C1A6D1644006449DB /* Duration.swift */; };
 		28C0DBCE1D057E4000279645 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6429C31A6D2C8700B10310 /* Operators.swift */; };
 		28C0DBCF1D057E4000279645 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6429C51A6D33FA00B10310 /* Extensions.swift */; };
+		28FE15261E93903E00773F39 /* MomentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7559221DF9B03B00397CBF /* MomentCache.swift */; };
+		28FE15271E93903F00773F39 /* MomentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7559221DF9B03B00397CBF /* MomentCache.swift */; };
+		28FE15281E93903F00773F39 /* MomentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7559221DF9B03B00397CBF /* MomentCache.swift */; };
 		3A6429C41A6D2C8700B10310 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6429C31A6D2C8700B10310 /* Operators.swift */; };
 		3A6429C61A6D33FA00B10310 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6429C51A6D33FA00B10310 /* Extensions.swift */; };
 		3A6429C81A6D345500B10310 /* DurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6429C71A6D345500B10310 /* DurationTests.swift */; };
@@ -45,6 +48,14 @@
 		3AB0FB891A6D160F006449DB /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0FB881A6D160F006449DB /* Moment.swift */; };
 		3AB0FB8B1A6D1629006449DB /* TimeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0FB8A1A6D1629006449DB /* TimeUnit.swift */; };
 		3AB0FB8D1A6D1644006449DB /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0FB8C1A6D1644006449DB /* Duration.swift */; };
+		3AFB8ABA1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8ABB1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8ABC1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8ABD1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8ABE1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8ABF1DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3AFB8AC01DAE395000356653 /* LazyBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB8AB91DAE395000356653 /* LazyBox.swift */; };
+		3D7559231DF9B03B00397CBF /* MomentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7559221DF9B03B00397CBF /* MomentCache.swift */; };
 		53C2DA3B1C99956E00604118 /* MomentFromNow.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 53CB62721C919E8000BA62E9 /* MomentFromNow.bundle */; };
 		53C2DA3C1C99957E00604118 /* MomentFromNow.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 53CB62721C919E8000BA62E9 /* MomentFromNow.bundle */; };
 		53CB62741C919E8000BA62E9 /* MomentFromNow.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 53CB62721C919E8000BA62E9 /* MomentFromNow.bundle */; };
@@ -103,6 +114,8 @@
 		3AB0FB881A6D160F006449DB /* Moment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
 		3AB0FB8A1A6D1629006449DB /* TimeUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUnit.swift; sourceTree = "<group>"; };
 		3AB0FB8C1A6D1644006449DB /* Duration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
+		3AFB8AB91DAE395000356653 /* LazyBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBox.swift; sourceTree = "<group>"; };
+		3D7559221DF9B03B00397CBF /* MomentCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentCache.swift; sourceTree = "<group>"; };
 		53CB62721C919E8000BA62E9 /* MomentFromNow.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MomentFromNow.bundle; sourceTree = "<group>"; };
 		E2532BEC1C358B4E00392471 /* SwiftMoment macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftMoment macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F6254B1C357BC00057AE1D /* SwiftMoment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMoment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +213,8 @@
 				3AB0FB8C1A6D1644006449DB /* Duration.swift */,
 				3A6429C31A6D2C8700B10310 /* Operators.swift */,
 				3A6429C51A6D33FA00B10310 /* Extensions.swift */,
+				3AFB8AB91DAE395000356653 /* LazyBox.swift */,
+				3D7559221DF9B03B00397CBF /* MomentCache.swift */,
 			);
 			path = SwiftMoment;
 			sourceTree = "<group>";
@@ -278,7 +293,6 @@
 				285B8B461D057575008A6AD6 /* Frameworks */,
 				285B8B471D057575008A6AD6 /* Headers */,
 				285B8B481D057575008A6AD6 /* Resources */,
-				2877F4D91D06B87100B66806 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -315,7 +329,6 @@
 				28C0DBBE1D057D9F00279645 /* Frameworks */,
 				28C0DBBF1D057D9F00279645 /* Headers */,
 				28C0DBC01D057D9F00279645 /* Resources */,
-				2877F4DA1D06B88000B66806 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -334,7 +347,6 @@
 				3AB0FB681A6D15F8006449DB /* Frameworks */,
 				3AB0FB691A6D15F8006449DB /* Headers */,
 				3AB0FB6A1A6D15F8006449DB /* Resources */,
-				2877F4D71D06B82E00B66806 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -389,7 +401,6 @@
 				E2F625441C357BC00057AE1D /* Frameworks */,
 				E2F625451C357BC00057AE1D /* Headers */,
 				E2F625471C357BC00057AE1D /* Resources */,
-				2877F4D81D06B86100B66806 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -408,26 +419,35 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Adrian Kosmaczewski";
 				TargetAttributes = {
 					285B8B491D057575008A6AD6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					285B8B521D057575008A6AD6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					28C0DBC11D057D9F00279645 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					3AB0FB6B1A6D15F8006449DB = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 0900;
 					};
 					3AB0FB761A6D15F8006449DB = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 0900;
 					};
 					E2532BEB1C358B4E00392471 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
+					};
+					E2F6253D1C357BC00057AE1D = {
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -513,73 +533,17 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2877F4D71D06B82E00B66806 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		2877F4D81D06B86100B66806 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		2877F4D91D06B87100B66806 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		2877F4DA1D06B88000B66806 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		285B8B451D057575008A6AD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FE15271E93903F00773F39 /* MomentCache.swift in Sources */,
 				285B8B6D1D057979008A6AD6 /* Extensions.swift in Sources */,
 				285B8B6B1D057979008A6AD6 /* Duration.swift in Sources */,
 				285B8B6C1D057979008A6AD6 /* Operators.swift in Sources */,
 				285B8B6A1D057979008A6AD6 /* TimeUnit.swift in Sources */,
+				3AFB8ABE1DAE395000356653 /* LazyBox.swift in Sources */,
 				2877F4E21D06BF0E00B66806 /* MomentFromNow.swift in Sources */,
 				285B8B691D057979008A6AD6 /* Moment.swift in Sources */,
 			);
@@ -592,6 +556,7 @@
 				2877F4DE1D06BCB900B66806 /* FromNowTests.swift in Sources */,
 				285B8B611D057611008A6AD6 /* MomentTests.swift in Sources */,
 				285B8B631D057611008A6AD6 /* ExtensionsTests.swift in Sources */,
+				3AFB8ABF1DAE395000356653 /* LazyBox.swift in Sources */,
 				285B8B621D057611008A6AD6 /* DurationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,10 +565,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FE15281E93903F00773F39 /* MomentCache.swift in Sources */,
 				28C0DBCF1D057E4000279645 /* Extensions.swift in Sources */,
 				28C0DBCD1D057E4000279645 /* Duration.swift in Sources */,
 				28C0DBCE1D057E4000279645 /* Operators.swift in Sources */,
 				28C0DBCC1D057E4000279645 /* TimeUnit.swift in Sources */,
+				3AFB8AC01DAE395000356653 /* LazyBox.swift in Sources */,
 				2877F4E31D06BF0E00B66806 /* MomentFromNow.swift in Sources */,
 				28C0DBCB1D057E4000279645 /* Moment.swift in Sources */,
 			);
@@ -613,10 +580,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D7559231DF9B03B00397CBF /* MomentCache.swift in Sources */,
 				3A6429C61A6D33FA00B10310 /* Extensions.swift in Sources */,
 				3AB0FB8D1A6D1644006449DB /* Duration.swift in Sources */,
 				3A6429C41A6D2C8700B10310 /* Operators.swift in Sources */,
 				3AB0FB8B1A6D1629006449DB /* TimeUnit.swift in Sources */,
+				3AFB8ABA1DAE395000356653 /* LazyBox.swift in Sources */,
 				2877F4E01D06BF0E00B66806 /* MomentFromNow.swift in Sources */,
 				3AB0FB891A6D160F006449DB /* Moment.swift in Sources */,
 			);
@@ -629,6 +598,7 @@
 				2877F4DC1D06BCB900B66806 /* FromNowTests.swift in Sources */,
 				3AB0FB7F1A6D15F8006449DB /* MomentTests.swift in Sources */,
 				16DF56A51C3A7D7900ED9292 /* ExtensionsTests.swift in Sources */,
+				3AFB8ABB1DAE395000356653 /* LazyBox.swift in Sources */,
 				3A6429C81A6D345500B10310 /* DurationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -640,6 +610,7 @@
 				2877F4DD1D06BCB900B66806 /* FromNowTests.swift in Sources */,
 				E2532BF71C358BC000392471 /* MomentTests.swift in Sources */,
 				E2532BF81C358BC000392471 /* DurationTests.swift in Sources */,
+				3AFB8ABD1DAE395000356653 /* LazyBox.swift in Sources */,
 				285B8B441D056DCA008A6AD6 /* ExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,10 +619,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FE15261E93903E00773F39 /* MomentCache.swift in Sources */,
 				E2F6253F1C357BC00057AE1D /* Extensions.swift in Sources */,
 				E2F625401C357BC00057AE1D /* Duration.swift in Sources */,
 				E2F625411C357BC00057AE1D /* Operators.swift in Sources */,
 				E2F625421C357BC00057AE1D /* TimeUnit.swift in Sources */,
+				3AFB8ABC1DAE395000356653 /* LazyBox.swift in Sources */,
 				2877F4E11D06BF0E00B66806 /* MomentFromNow.swift in Sources */,
 				E2F625431C357BC00057AE1D /* Moment.swift in Sources */,
 			);
@@ -681,7 +654,9 @@
 		285B8B5C1D057575008A6AD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -695,6 +670,7 @@
 				PRODUCT_NAME = SwiftMoment;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -703,7 +679,9 @@
 		285B8B5D1D057575008A6AD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -718,6 +696,7 @@
 				PRODUCT_NAME = SwiftMoment;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -734,6 +713,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.SwiftMoment-tvOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Debug;
@@ -750,6 +730,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.SwiftMoment-tvOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Release;
@@ -759,6 +740,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -772,6 +754,7 @@
 				PRODUCT_NAME = SwiftMoment;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -782,6 +765,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -796,6 +780,7 @@
 				PRODUCT_NAME = SwiftMoment;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -809,13 +794,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -825,6 +818,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -837,11 +831,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -856,13 +852,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -871,15 +875,19 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -890,7 +898,9 @@
 		3AB0FB831A6D15F8006449DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -903,6 +913,8 @@
 				PRODUCT_NAME = SwiftMoment;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -910,7 +922,9 @@
 		3AB0FB841A6D15F8006449DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -922,6 +936,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftMoment;
 				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -941,6 +957,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -955,6 +973,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -972,6 +992,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.SwiftMoment-macOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -989,12 +1010,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.akosma.SwiftMoment-macOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		E2F625491C357BC00057AE1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -1011,6 +1034,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1018,6 +1042,7 @@
 		E2F6254A1C357BC00057AE1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -1033,6 +1058,7 @@
 				PRODUCT_NAME = SwiftMoment;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
