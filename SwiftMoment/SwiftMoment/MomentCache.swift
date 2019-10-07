@@ -14,10 +14,11 @@ internal class MomentCache {
 		let tz: TimeZone
 		let locale: Locale
 		
-		var hashValue: Int {
-			return tz.hashValue ^ locale.hashValue
-		}
-		static func ==(lhs: Key, rhs: Key) -> Bool {
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(tz.hashValue ^ locale.hashValue)
+        }
+
+        static func ==(lhs: Key, rhs: Key) -> Bool {
 			return lhs.tz == rhs.tz && lhs.locale == rhs.locale
 		}
 	}
